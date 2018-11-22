@@ -34,8 +34,8 @@ vDate=`date '+%Y%m%d.%H%S'`
 OutputDir=/home/an093685/netbackup/output
 
 # Variables used in Export tapes file
-NEWOutputfile=${OutputDir}/Teradata_backup_tapes_report_prod_`date '+%Y%m%d'`".txt"
-Outputfile=${OutputDir}/reports/export_media/Teradata_backup_tapes_`date '+%Y%m%d'`".txt"
+NEWOutputfile=${OutputDir}/Teradata_backup_tapes_report_prod_`date '+%Y%m%d.%H%S'`".txt"
+Outputfile=${OutputDir}/reports/export_media/Teradata_backup_tapes_`date '+%Y%m%d.%H%S'`".txt"
 
 export Pject # Backup_Seq
 
