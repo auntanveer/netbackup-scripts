@@ -157,20 +157,21 @@ else
 fi
 export MMDD
 
-echo "Start of Weekly Backup ${MMDD} at `date '+%Y%m%d.%H%S'`" > $PLog
+echo "Start of Monthly Backup ${MMDD} at `date '+%Y%m%d.%H%S'`" > $PLog
 
 if [ "${Backup_Seq}" = "" ]; then
-        echo "Sequence Number is blank ${Backup_Seq} "  >> $PLog
-        exit 1
+	echo "Sequence Number is blank ${Backup_Seq} "  >> $PLog
+	exit 1
 fi
 
-if [[ ${Backup_Seq} = [1234] ]]
+if [[ ${Backup_Seq} = [12] ]]
 then
         echo "Sequence Number ${Backup_Seq} is within the range "  >> $PLog
 else
         echo "Sequence Number ${Backup_Seq} is incorrect"  >> $PLog
         exit 1
 fi
+
 
 #####################################################################################################################
 # Check for running process
