@@ -1,7 +1,7 @@
 #!/bin/ksh
 ################################################################################################################################
 #
-# Program Overview:     Kick off the weekly backup
+# Program Overview:     Kick off the monthly backup
 #
 # =====================================================================
 # Filename:             bkp_monthly_1.sh
