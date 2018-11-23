@@ -38,9 +38,9 @@ PLog=$PLogDir/${SCRIPT}_`date '+%Y%m%d.%H%S'`.log
 Bkp_Log=/home/arcadm/outputs
 
 ### Variables to Register Backup Set
-CTL_DB=Control_db
-Resgister_TBL=TapeRegisterOfBackupSet
-LOGON_DBM=/load/logondbm.btq
+CTL_DB=Control_nb
+Resgister_TBL=TapeRegisterOfBackupSet_nb
+LOGON_DBM=/home/an093685/netbackup/scripts/logondbm.btq
 
 ### Variables to run the Stg_actv, VHA_Four and PDCR backup#######
 #secs=10800;
