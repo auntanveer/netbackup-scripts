@@ -34,6 +34,7 @@ vDate=`date '+%Y%m%d.%H%S'`
 OutputDir=/home/an093685/netbackup/output
 
 # Variables used in Export tapes file
+File_name=Teradata_backup_tapes_report_monthly_`date '+%Y%m%d.%H%S'`".txt"
 NEWOutputfile=${OutputDir}/Teradata_backup_tapes_report_monthly_`date '+%Y%m%d.%H%S'`".txt"
 Outputfile=${OutputDir}/reports/export_media/Teradata_backup_tapes_`date '+%Y%m%d.%H%S'`".txt"
 
@@ -238,6 +239,9 @@ Trigger_Catalog_Job
 cat ${OutputDir}/*.txt >$Outputfile
 column -t $Outputfile > $NEWOutputfile
 sed -i $'1 i\\\MEDIA_ID\,LAST_WRIITTEN\,POLICY_NAME\,STATUS\,Backup_type\,Backup_seq' $NEWOutputfile
+
+cp $NEWOutputfile /home/an093685/reports/export_media/scripts/file3/$File_name
+/home/an093685/reports/export_media/scripts/Media_info.sh $File_name
 
 rm -f $Outputfile
 
