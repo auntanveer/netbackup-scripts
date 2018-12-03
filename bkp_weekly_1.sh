@@ -54,41 +54,31 @@ Register_Backup_Set() {
         echo "" >> $PLog
         echo "Register Regular Backup details at `date '+%Y%m%d'.%H%M`" >> $PLog
         echo "" >> $PLog
-
+Job=${JobName}_${initial}${Backup_Seq}
         /usr/bin/bteq << !EOF >> $PLog
         .Set Sessions 20
-
         .Run File ${LOGON_DBM};
         SELECT 1
         FROM ${CTL_DB}.${Resgister_TBL}
-        WHERE  Job_Name = '${JobName}'
+        WHERE  Job_Name = '${Job}'
         ;
-
         .If ActivityCount =0 THEN .GOTO INSERT_RECORD
         .If ActivityCount >= 1 THEN .GOTO UPDATE_RECORD
         .if ErrorCode <> 0 THEN .GOTO EXITWITHERROR
-
         .LABEL INSERT_RECORD
-
         INSERT INTO ${CTL_DB}.${Resgister_TBL}
-        Values('${JobName}',date);
-
+        Values('${Job}',date);
         .If ActivityCount >= 1 THEN .GOTO ExitOK
         .if ErrorCode <> 0 THEN .GOTO EXITWITHERROR
-
         .LABEL UPDATE_RECORD
-
         UPDATE ${CTL_DB}.${Resgister_TBL}
         SET Run_Date=Date
-        WHERE JOB_NAME='${JobName}'
+        WHERE JOB_NAME='${Job}'
         ;
-
         .If ActivityCount >= 1 THEN .GOTO ExitOK
         .if ErrorCode <> 0 THEN .GOTO EXITWITHERROR
-
 .LABEL EXITWITHERROR
 .QUIT ERRORCODE;
-
 .LABEL ExitOK
 .Logoff
 .QUIT 0;
