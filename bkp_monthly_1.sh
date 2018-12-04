@@ -104,7 +104,7 @@ Trigger_DB_Job() {
 
                         Register_Backup_Set
 
-ssh root@vodaaubarp2-95-5 dsc run_job -n $JobName -w >> $PLog 2>&1
+ssh Admin_Bar@vodaaubarp2-95-5 dsc run_job -n $JobName -w >> $PLog 2>&1
         rc=$?
 if [ $rc -ne 0 ]; then
     echo "Backup  ${JobName} Failed with return code ${rc}" >> $PLog
@@ -112,8 +112,8 @@ else
     echo "Backup  ${JobName} Completed Successfully with return code ${rc}" >> $PLog
 fi
 
-ssh -t root@vodaaubarp2-95-5 /home/netbackup/scripts/backup_tapes_report_prod.sh ${JobName}  $rc ${Pject} ${Backup_Seq} ${initial}  2>&1
-ssh -t root@vodaaubarp2-95-5 /home/netbackup/scripts/dsa_log.sh ${JobName} ${Backup_Seq} ${initial} 2>&1
+ssh -t Admin_Bar@vodaaubarp2-95-5 /home/netbackup/scripts/backup_tapes_report_prod.sh ${JobName}  $rc ${Pject} ${Backup_Seq} ${initial}  2>&1
+ssh -t Admin_Bar@vodaaubarp2-95-5 /home/netbackup/scripts/dsa_log.sh ${JobName} ${Backup_Seq} ${initial} 2>&1
 
         Run_Clear_Ftp
 }
@@ -124,7 +124,7 @@ ssh -t root@vodaaubarp2-95-5 /home/netbackup/scripts/dsa_log.sh ${JobName} ${Bac
 Trigger_DB_Job_2() {
 
                         Register_Backup_Set
-ssh root@vodaaubarp2-95-5 dsc run_job -n $JobName -w >> $PLog 2>&1
+ssh Admin_Bar@vodaaubarp2-95-5 dsc run_job -n $JobName -w >> $PLog 2>&1
         rc=$?
 if [ $rc -ne 0 ]; then
     echo "Backup  ${JobName} Failed with return code ${rc}" >> $PLog
@@ -132,8 +132,8 @@ else
     echo "Backup  ${JobName} Completed Successfully with return code ${rc}" >> $PLog
 fi
 
-ssh -t root@vodaaubarp2-95-5 /home/netbackup/scripts/backup_tapes_report_prod_2.sh ${JobName}  $rc ${Pject} ${Backup_Seq} ${initial}  2>&1
-ssh -t root@vodaaubarp2-95-5 /home/netbackup/scripts/dsa_log.sh ${JobName} ${Backup_Seq} ${initial} 2>&1
+ssh -t Admin_Bar@vodaaubarp2-95-5 /home/netbackup/scripts/backup_tapes_report_prod_2.sh ${JobName}  $rc ${Pject} ${Backup_Seq} ${initial}  2>&1
+ssh -t Admin_Bar@vodaaubarp2-95-5 /home/netbackup/scripts/dsa_log.sh ${JobName} ${Backup_Seq} ${initial} 2>&1
 
         Run_Clear_Ftp
 }
@@ -377,60 +377,3 @@ usr/bin/mailx -s "TESTING TESTING Backup is completed. Please stop GG immediatel
 /usr/bin/mailx -s "TESTING TESTING Backup is completed. Please stop GG immediately at `date '+%Y%m%d.%H%S'`" ${VDW_GG_MALL} << !!EOT
 !!EOT
 
-#while [ ! -f "$triggerfile" ]
-#do
-#
-#sleep 60;
-#
-#: $((secs=secs-60))
-#if [ $secs -lt 0 ]
-#then
-#echo 'File not found' $triggerfile >> $PLog &
-#
-#exit
-#fi
-#
-#
-#done
-#
-#rm -f $triggerfile
-#
-#echo "########Triggering the STG_ACTV,VHA_FOUR,PDCR backups########" >> $PLog &
-#
-###############################################################################################################################################
-## Backup VHA STG_ACTV Databases
-###############################################################################################################################################
-#
-#JobName=bkp_vha_stg_actv_monthly
-#Trigger_DB_Job
-#
-###############################################################################################################################################
-## Backup VHA Four Databases
-###############################################################################################################################################
-#
-#JobName=bkp_vha_four_monthly
-#Trigger_DB_Job
-#
-#
-###############################################################################################################################################
-## Backup VHA PDCR Databases
-###############################################################################################################################################
-#
-#JobName=bkp_vha_pdcr_monthly
-#Trigger_DB_Job
-#
-######################################################################################################################
-##Formating the Columns of the outputfile
-######################################################################################################################
-#cat ${OutputDir}/*.txt >$Outputfile
-#column -t $Outputfile > $NEWOutputfile
-#sed -i $'1 i\\\MEDIA_ID\,LAST_WRIITTEN\,POLICY_NAME\,STATUS\,Backup_type\,Backup_seq' $NEWOutputfile
-#
-#rm -f $Outputfile
-#
-#
-#
-######################################################################################################################
-##  Send email notification
-######################################################################################################################
-#/usr/bin/mailx -s "TESTING TESTING VODAU5 Export tapes report at `date '+%Y%m%d.%H%S'`" ${VDWADMINMAIL} < $NEWOutputfile << !!EOT
