@@ -108,7 +108,7 @@ Trigger_DB_Job() {
 
                         Register_Backup_Set
 
-ssh root@39.82.248.5 dsc run_job -n $JobName -w >> $PLog 2>&1
+ssh Admin_Bar@vodaaubarp2-95-5 dsc run_job -n $JobName -w >> $PLog 2>&1
         rc=$?
 if [ $rc -ne 0 ]; then
     echo "Backup  ${JobName} Failed with return code ${rc}" >> $PLog
@@ -116,8 +116,8 @@ else
     echo "Backup  ${JobName} Completed Successfully with return code ${rc}" >> $PLog
 fi
 
-ssh -t root@39.82.248.5 /home/netbackup/scripts/backup_tapes_report_prod.sh ${JobName}  $rc ${Pject} ${Backup_Seq} ${initial} 2>&1
-ssh -t root@39.82.248.5 /home/netbackup/scripts/dsa_log.sh ${JobName} ${Backup_Seq} ${initial} 2>&1
+ssh -t Admin_Bar@vodaaubarp2-95-5 /home/netbackup/scripts/backup_tapes_report_prod.sh ${JobName}  $rc ${Pject} ${Backup_Seq} ${initial} 2>&1
+ssh -t Admin_Bar@vodaaubarp2-95-5 /home/netbackup/scripts/dsa_log.sh ${JobName} ${Backup_Seq} ${initial} 2>&1
 
         Run_Clear_Ftp
 }
@@ -129,7 +129,7 @@ Trigger_Catalog_Job() {
 
                         Register_Backup_Set
 
-ssh -t root@39.82.248.5 /home/netbackup/scripts/backup_tapes_report_catalog.sh ${JobName}  $rc ${Pject} ${Backup_Seq} ${initial} 2>&1
+ssh -t Admin_Bar@vodaaubarp2-95-5 /home/netbackup/scripts/backup_tapes_report_catalog.sh ${JobName}  $rc ${Pject} ${Backup_Seq} ${initial} 2>&1
         
 }
 
